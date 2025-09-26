@@ -47,4 +47,22 @@ class Usuario:
     def curso(self, curso: str):
         if isinstance(curso, str):
             self.__curso = curso
+
+    def cadastrar(self, nome: str, email: str, telefone: str, curso: str, matricula: str):
+        """Cadastra ou atualiza os dados do usuário"""
+        self.nome = nome
+        self.email = email
+        self.telefone = telefone
+        self.curso = curso
+        self.matricula = matricula
+    
+    def consultar(self) -> None:
+        """Exibe os dados do usuário em forma de print"""
+        print(f"--- Dados do Usuário ---")
+        print(f"Nome: {self.nome}")
+        print(f"Email: {self.email}")
+        print(f"Telefone: {self.telefone}")
+        print(f"Curso: {self.curso}")
+        print(f"Matrícula: {self.matricula}")
+
     
