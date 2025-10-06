@@ -1,7 +1,6 @@
 # ==============================
 # Exceções gerais do sistema
 # ==============================
-
 class UsuarioNaoEncontradoException(Exception):
     def __init__(self):
         super().__init__("Usuário não encontrado no sistema.")
