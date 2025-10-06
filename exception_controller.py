@@ -2,7 +2,7 @@ from sistema_exceptions import SistemaException
 
 
 class ExceptionController:
-    def __init__(self, modo_debug: bool = False):
+    def __init__(self):
   
 
     def tratar_excecao(self, erro: Exception):
