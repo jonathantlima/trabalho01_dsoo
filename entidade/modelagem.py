@@ -1,7 +1,6 @@
 from numpy import arange, zeros
 from entidade.anion import Anion
 from entidade.cation import Cation
-from entidade.simulacao import Simulacao
 from entidade.condicao_inicial import CondicaoInicial
 from entidade.condicao_de_contorno import CondicaoDeContorno
 
@@ -9,14 +8,11 @@ from entidade.condicao_de_contorno import CondicaoDeContorno
 class Modelagem:
 
     def __init__(self,
-                 simulacao: Simulacao,
                  condicao_inicial: CondicaoInicial,
                  condicao_de_contorno: CondicaoDeContorno,
                  space_increment: float = 0.5,
                  time_increment: float = 0.125
     ):
-        if isinstance(simulacao, Simulacao):
-            self.__simulacao = simulacao
         if isinstance(condicao_inicial, CondicaoInicial):
             self.__condicao_inicial = condicao_inicial
         if isinstance(condicao_de_contorno, CondicaoDeContorno):
@@ -26,10 +22,6 @@ class Modelagem:
         if isinstance(time_increment, float):
             self.__time_increment = time_increment
         self.__C = None
-
-    @property
-    def simulacao(self) -> Simulacao:
-        return self.__simulacao
 
     @property
     def condicao_inicial(self) -> CondicaoInicial:

@@ -15,7 +15,7 @@ class TelaUsuario:
         curso = input("Curso: ")
         matricula = input("Matrícula: ")
         return {"nome": nome, "email": email, "telefone": telefone, "curso": curso, "matricula": matricula}
-
+    ##viola o mvc
     def mostra_usuario(self, usuario):
         print(" >>> DADOS DO USUÁRIO <<<")
         print("----- Nome ----- email ----- curso ----- matricula -----")

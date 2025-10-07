@@ -25,7 +25,7 @@ class ControladorSistema:
             1: self.__controlador_usuario.abre_tela,
             2: self.__controlador_solo.abre_tela,
             3: self.__controlador_celula.abre_tela,
-            4: self.__controlador_condicao_inicial.apresenta_menu,
+            4: self.__controlador_condicao_inicial.abre_tela,
             5: self.__controlador_modelagem.abre_tela,
             6: self.__controlador_simulacao.abre_tela,
             0: self.encerra_sistema
@@ -45,5 +45,5 @@ class ControladorSistema:
 
     def encerra_sistema(self):
         print("\nEncerrando o sistema...")
-        exit()
+        exit(0)
 

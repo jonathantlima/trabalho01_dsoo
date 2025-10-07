@@ -4,7 +4,7 @@ class TelaCondicaoInicial:
         print(">>> CONDIÇÃO INICIAL <<<")
         print("Selecione uma opção")
         print("1 - Configurar condição inicial")
-        print("2 - Alterar condição inicial")
+        print("2 - Receber condicao inicial")
         print("3 - Exibir condição inicial")
         print("0 - Retornar")
 

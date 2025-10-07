@@ -1,4 +1,3 @@
-# limite/tela_sistema.py
 class TelaSistema:
     def mostra_menu(self):
         print("\n=== SISTEMA DE SIMULAÇÃO ELETROCINÉTICA ===")
@@ -10,4 +9,3 @@ class TelaSistema:
         print("6 - Simulação")
         print("0 - Sair")
         return int(input("Escolha uma opção: "))
-

@@ -29,8 +29,8 @@ class ControladorUsuario:
     def cadastrar_usuario(self):
         try:
             nome, email, telefone, curso, matricula = self.__tela_usuario.coleta_dados_usuario()
-            usuario = Usuario(**dados)
-            self.__usuarios.append(ome, email, telefone, curso, matricula)
+            usuario = Usuario(nome, email, telefone, curso, matricula)
+            self.__usuarios.append(usuario)
             print("Usuário cadastrado com sucesso!")
         except Exception as e:
             print(f"Erro ao cadastrar usuário: {e}")
