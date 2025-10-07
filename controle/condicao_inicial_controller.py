@@ -60,8 +60,7 @@ class ControladorCondicaoInicial:
             print("Nenhuma condição inicial cadastrada ainda.")
 
     def retornar(self):
-        # Apenas volta ao menu principal sem novo import
-        return
+        self.__controlador_sistema.abre_tela()
     
     def get_condicao_inicial(self):
         return self.__condicao_inicial
