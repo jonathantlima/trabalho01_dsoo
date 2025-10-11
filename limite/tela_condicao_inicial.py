@@ -14,8 +14,8 @@ class TelaCondicaoInicial:
     def coleta_dados_especie_quimica(self):
         nome = input("Digite o nome do composto: ")
         formula = input("Digite a fórmula do composto: ")
-        funcao = input("Digite a função química do composto")
-        valencia = input("Digite o valor da valência iônica: ")
+        funcao = input("Digite a função química do composto: ")
+        valencia = int(input("Digite o valor da valência iônica: "))
         coeficiente_de_difusao = float(input("Digite o valor do coeficiente de difusão: "))
 
         return nome, formula, funcao, valencia, coeficiente_de_difusao
