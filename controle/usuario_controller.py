@@ -29,15 +29,16 @@ class ControladorUsuario:
     def cadastrar_usuario(self):
         try:
             usuario_dict = self.__tela_usuario.coleta_dados_usuario()
-            usuario = Usuario(usuario_dict["nome"], usuario_dict["email"], usuario_dict["telefone"], usuario_dict["curso"], usuario_dict["matricula"])
+            usuario = Usuario(usuario_dict["nome"], usuario_dict["email"], usuario_dict["telefone"], usuario_dict["departamento"], usuario_dict["matricula"])
             self.__usuarios.append(usuario)
-            print("Usuário cadastrado com sucesso!")
+            self.__tela_usuario.imprime_mensagem(f"Usuário cadastrado com sucesso!")
         except Exception as e:
             print(f"Erro ao cadastrar usuário: {e}")
 
     def listar_usuarios(self):
         for usuario in self.__usuarios:
-            self.__tela_usuario.mostra_usuario(usuario)
+            dados_usuario = {"nome": usuario.nome, "email": usuario.email, "telefone": usuario.telefone, "departamento": usuario.departamento, "matricula": usuario.matricula}
+            self.__tela_usuario.mostra_usuario(dados_usuario)
 
     def alterar_usuario(self):
         try:
@@ -48,7 +49,7 @@ class ControladorUsuario:
                     usuario.nome = novos_dados["nome"]
                     usuario.email = novos_dados["email"]
                     usuario.telefone = novos_dados["telefone"]
-                    usuario.curso = novos_dados["curso"]
+                    usuario.departameno = novos_dados["departamento"]
                     print("Dados atualizados.")
                     return
             print("Usuário não encontrado.")

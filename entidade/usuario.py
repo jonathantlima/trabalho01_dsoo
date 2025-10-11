@@ -1,14 +1,14 @@
 class Usuario:
 
-    def __init__(self, nome: str, email: str, telefone: str, curso: str, matricula: str):
+    def __init__(self, nome: str, email: str, telefone: str, departamento: str, matricula: str):
         if isinstance(nome, str):
             self.__nome = nome
         if isinstance(email, str):
             self.__email = email
         if isinstance(telefone, str):
             self.__telefone = telefone
-        if isinstance(curso, str):
-            self.__curso = curso
+        if isinstance(departamento, str):
+            self.__departamento = departamento
         if isinstance(matricula, str):
             self.__matricula = matricula
     
@@ -40,13 +40,13 @@ class Usuario:
             self.__telefone = telefone
 
     @property
-    def curso(self) -> str:
-        return self.__curso
+    def departamento(self) -> str:
+        return self.__departamento
 
-    @curso.setter
-    def curso(self, curso: str):
-        if isinstance(curso, str):
-            self.__curso = curso
+    @departamento.setter
+    def departamento(self, departamento: str):
+        if isinstance(departamento, str):
+            self.__departamento = departamento
 
     @property
     def matricula(self) -> str:

@@ -12,11 +12,15 @@ class TelaUsuario:
         nome = input("Nome: ")
         email = input("Email: ")
         telefone = input("Telefone: ")
-        curso = input("Curso: ")
+        departamento = input("Departamento: ")
         matricula = input("Matrícula: ")
-        return {"nome": nome, "email": email, "telefone": telefone, "curso": curso, "matricula": matricula}
-    ##viola o mvc
-    def mostra_usuario(self, usuario):
+        return {"nome": nome, "email": email, "telefone": telefone, "departamento": departamento, "matricula": matricula}
+
+    def mostra_usuario(self, dados_usuario):
         print(" >>> DADOS DO USUÁRIO <<<")
-        print("----- Nome ----- email ----- curso ----- matricula -----")
-        print(f"{usuario.nome} - {usuario.email} - {usuario.curso} ({usuario.matricula})")
+        print("----- Nome ----- Email ----- Departamento -----( Matricula )-----")
+        print(f"{dados_usuario["nome"]} - {dados_usuario["email"]} - {dados_usuario["departamento"]} ({dados_usuario["matricula"]})")
+    
+    def imprime_mensagem(self, mensagem: str):
+        if isinstance(mensagem, str):
+            print(mensagem)
