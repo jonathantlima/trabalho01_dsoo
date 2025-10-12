@@ -22,7 +22,7 @@ class ControladorCondicaoInicial:
             if opcao in opcoes:
                 opcoes[opcao]()
             else:
-                print("Opção inválida")
+                self.__tela.imprime_mensagem("Opção inválida")
 
     def set_condicao_inicial(self):
         try:
@@ -33,10 +33,14 @@ class ControladorCondicaoInicial:
                 ion = input("Escolha o tipo de íon:\n1 - Cátion\n2 - Ânion\n> ")
                 if ion == "1":
                     especie_quimica = Cation(nome, formula, funcao, valencia, coeficiente_de_difusao)
+                    self.__tela.imprime_mensagem("Cátion criado com sucesso.")
+                    break
                 elif ion == "2":
                     especie_quimica = Anion(nome, formula, funcao, valencia, coeficiente_de_difusao)
+                    self.__tela.imprime_mensagem("Ânion criado com sucesso.")
+                    break
                 else:
-                    print("Tipo inválido. Retornando ao menu.")
+                    self.__tela.imprime_mensagem("Tipo inválido. Retornando ao menu.")
                     return
 
             gradiente_eletrico = self.__tela.coleta_gradiente_eletrico()
@@ -48,16 +52,16 @@ class ControladorCondicaoInicial:
                 especie_quimica,
                 concentracao_inicial
             )
-            print("Condição inicial configurada com sucesso!")
+            self.__tela.imprime_mensagem("Condição inicial configurada com sucesso!")
             return self.__condicao_inicial
         except Exception as e:
-            print(f"Erro ao configurar a condição inicial: {e}")
+            self.__tela.imprime_mensagem(f"Erro ao configurar a condição inicial: {e}")
 
     def mostra_condicao_inicial(self):
         if self.__condicao_inicial:
             self.__tela.exibe_condicao_inicial(self.__condicao_inicial)
         else:
-            print("Nenhuma condição inicial cadastrada ainda.")
+            self.__tela.imprime_mensagem("Nenhuma condição inicial cadastrada ainda.")
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

@@ -51,3 +51,6 @@ class TelaCondicaoInicial:
         print("Fórmula química: ", condicao_inicial.especie_quimica.formula)
         print("Função química: ", condicao_inicial.especie_quimica.funcao)
         print("Coeficiente de difusao: ", condicao_inicial.especie_quimica.coeficiente_de_difusao)
+    
+    def imprime_mensagem(self, mensagem):
+        print(mensagem)
