@@ -8,7 +8,7 @@ class CondicaoInicial:
                  gradiente_eletrico: float,
                  gradiente_hidraulico: float,
                  especie_quimica: EspecieQuimica,
-                 concentracao_inicial: list[float]
+                 concentracao_inicial: float
     ):
         if isinstance(gradiente_eletrico, float):
             self.__gradiente_eletrico = gradiente_eletrico
@@ -16,7 +16,7 @@ class CondicaoInicial:
             self.__gradiente_hidraulico = gradiente_hidraulico
         if isinstance(especie_quimica, EspecieQuimica):
             self.__especie_quimica = especie_quimica
-        if isinstance(concentracao_inicial, list) and all(isinstance(v, (int, float)) for v in concentracao_inicial):
+        if isinstance(concentracao_inicial, float):
             self.__concentracao_inicial = concentracao_inicial
     
     @property
@@ -47,10 +47,10 @@ class CondicaoInicial:
             self.__especie_quimica = especie_quimica
     
     @property
-    def concentracao_inicial(self):
+    def concentracao_inicial(self) -> float:
         return self.__concentracao_inicial
     
     @concentracao_inicial.setter
-    def concentracao_inicial(self, valores):
-        if isinstance(valores, list):
-            self.__concentracao_inicial = valores
+    def concentracao_inicial(self, concentracao_inicial: float):
+        if isinstance(concentracao_inicial, float):
+            self.__concentracao_inicial = concentracao_inicial

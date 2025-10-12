@@ -10,7 +10,7 @@ from entidade.celula_experimental import CelulaExperimental
 class Simulacao():
 
     def __init__(self,
-                 data:date,
+                 data: date,
                  solo: Solo,
                  celula_experimental: CelulaExperimental,
                  modelo: Modelagem,

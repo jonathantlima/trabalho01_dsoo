@@ -7,7 +7,7 @@ from limite.tela_condicao_inicial import TelaCondicaoInicial
 class ControladorCondicaoInicial:
     def __init__(self, controlador_sistema):
         self.__tela = TelaCondicaoInicial()
-        self.__condicao_inicial = None
+        self.__condicoes_iniciais = None
         self.__controlador_sistema = controlador_sistema  # referência ao sistema principal
 
     def abre_tela(self):

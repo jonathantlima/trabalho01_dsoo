@@ -11,7 +11,8 @@ class ControladorModelagem:
     def abre_tela(self):
         opcoes = {
             1: self.cadastra_modelagem,
-            2: self.lista_modelagens,
+            2: self.altera_modelagem,
+            3: self.lista_modelagens,
             0: self.retornar
         }
         while True:
@@ -22,9 +23,11 @@ class ControladorModelagem:
                 print("Opção inválida")
 
     def cadastra_modelagem(self):
-        print("Criação de modelagem: requer simulação e condições definidas.")
-        # Aqui futuramente integrará com condicao_inicial e simulacao
-        print("Modelagem registrada (mock).")
+        self.__tela.imprime_mensagem(">>>>> COLETA DE DADOS <<<<<")
+        self.__controlador_sistema.controlador_condicao_inicial.mostra_condicao_inicial()
+    
+    def altera_modelagem(self):
+        pass
 
     def lista_modelagens(self):
         if not self.__modelagens:
