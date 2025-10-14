@@ -1,57 +1,98 @@
-# usuario_controller.py
+# arumar prints
 from usuario import Usuario
-class UsuarioController:
-    def __init__(self, view=None):
+class ControladorUsuario():
+
+    def __init__(self, controlador_sistema):
+        self.__tela = TelaUsuario()
         self.__usuarios = []
-        self.__view = view  # TelaUsuario (opcional)
+        self.__controlador_sistema = controlador_sistema
 
-    # Exibe menu básico
-    def menu(self):
-        print("=== MENU USUÁRIO ===")
-        print("1 - Cadastrar usuário")
-        print("2 - Modificar cadastro")
-        print("3 - Listar usuários")
-        print("4 - Gerar relatório")
-        print("0 - Voltar")
-
-    # Cadastro de novo usuário
-    def cadastra_usuario(self, nome, email, telefone, curso, matricula):
-        usuario = Usuario(nome, email, telefone, curso, matricula)
-        self.__usuarios.append(usuario)
-        print(f"Usuário '{nome}' cadastrado com sucesso!")
-
-    # Modifica dados de um usuário existente
-    def modifica_cadastro(self, matricula, **novos_dados):
-        for usuario in self.__usuarios:
-            if usuario.matricula == matricula:
-                if "nome" in novos_dados:
-                    usuario.nome = novos_dados["nome"]
-                if "email" in novos_dados:
-                    usuario.email = novos_dados["email"]
-                if "telefone" in novos_dados:
-                    usuario.telefone = novos_dados["telefone"]
-                if "curso" in novos_dados:
-                    usuario.curso = novos_dados["curso"]
-                print(f"Cadastro do usuário '{matricula}' atualizado.")
-                return
-        print("Usuário não encontrado.")
-
-    # Lista todos os usuários cadastrados
-    def lista_usuarios(self):
-        if not self.__usuarios:
-            print("Nenhum usuário cadastrado.")
-        for u in self.__usuarios:
-            print("--------------------")
-            print(u)
-
-    # Gera relatório simples dos usuários
-    def gera_relatorio(self):
-        print("=== RELATÓRIO DE USUÁRIOS ===")
-        for u in self.__usuarios:
-            print(f"{u.nome} - {u.curso} ({u.matricula})")
-        print(f"Total de usuários: {len(self.__usuarios)}")
-
-    # Getter opcional para acessar lista
     @property
     def usuarios(self):
         return self.__usuarios
+    
+    def abre_tela(self):
+        opcoes = {1: self.novo_usuario,
+                  2: self.altera_usuario,
+                  3: self.lista_usuarios,
+                  0: self.retornar
+        }
+    
+        while True:
+            try:
+                opcao = self.__tela.mostra_menu()
+                if opcao in opcoes:
+                    try:
+                        opcoes[opcao]()
+                    except Exception as e:
+                        self.__tela.imprime_mensagem(f"Erro ao executar a opção: {e}")
+                else:
+                    self.__tela.imprime_mensagem("Opção inválida.")
+            except Exception as e:
+                self.__tela.imprime_mensagem(f"Erro inesperado no menu: {e}")
+    
+    def novo_usuario(self):
+        try:
+            dados = self.__tela.coleta_dados()
+
+            # Verifica se já existe usuário com a mesma matrícula
+            if any(u.matricula == dados["matricula"] for u in self.__usuarios):
+                self.__tela.imprime_mensagem("Erro: Matrícula já cadastrada.\n")
+                return
+            if any(u.email == dados["email"] for u in self.__usuarios):
+                self.__tela.imprime_mensagem("Erro: Email já cadastrada.\n")
+                return
+            if any(u.telefone == dados["telefone"] for u in self.__usuarios):
+                self.__tela.imprime_mensagem("Erro: Telefone já cadastrado.\n")
+                return
+
+
+
+            novo_usuario = Usuario(
+                dados["nome"],
+                dados["email"],
+                dados["telefone"],
+                dados["departamento"],
+                dados["matricula"]
+            )
+            self.__usuarios.append(novo_usuario)
+            print(f"Novo usuário cadastrado (Dept. {dados['departamento']})\n")
+            return novo_usuario
+
+        except KeyError as e:
+            self.__tela.imprime_mensagem(f"Dado ausente: {e}")
+        except Exception as e:
+            self.__tela.imprime_mensagem(f"Erro ao cadastrar usuário: {e}")
+    
+    def altera_usuario(self):
+        self.lista_usuarios()
+        matricula = self.__tela.coleta_matricula_usuario()
+        for usuario in self.__usuarios:
+            if (usuario.matricula == matricula):
+                novos_dados = self.__tela.coleta_dados()
+                usuario.nome = novos_dados["nome"]
+                usuario.email = novos_dados["email"]
+                usuario.telefone = novos_dados["telefone"]
+                usuario.departamento = novos_dados["departamento"]
+                usuario.matricula = novos_dados["matricula"]
+            self.__tela.imprime_mensagem("Dados atualizados com sucesso.\n")
+        else:
+            self.__tela.imprime_mensagem("Usuário não cadastrado ou matrícula incorreta.\n")
+        
+        return usuario
+
+    def retorna_usuario(self, matricula):
+        for usuario in self.__usuarios:
+            if (usuario.matricula == matricula):
+                return usuario
+        else:
+            print("Usuário não cadastrado ou matrícula incorreta.\n")
+
+    def lista_usuarios(self):
+        print("Lista de Usuários")
+        print("--- Nome --- Matrícula --- Departamento")
+        for user in self.__usuarios:
+            print(user.nome, user.matricula, user.departamento)
+    
+    def retornar(self):
+        self.__controlador_sistema.abre_tela()
