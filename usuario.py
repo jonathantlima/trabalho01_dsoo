@@ -1,56 +1,98 @@
 # usuario.py
-class Usuario:
-    def __init__(self, nome: str, email: str, telefone: str, curso: str, matricula: str):
-        self.__nome = nome
-        self.__email = email
-        self.__telefone = telefone
-        self.__curso = curso
-        self.__matricula = matricula
+##tirar print 
+class ControladorUsuario():
 
-    # Getters e Setters
-    @property
-    def nome(self) -> str:
-        return self.__nome
-
-    @nome.setter
-    def nome(self, novo_nome: str):
-        self.__nome = novo_nome
+    def __init__(self, controlador_sistema):
+        self.__tela = TelaUsuario()
+        self.__usuarios = []
+        self.__controlador_sistema = controlador_sistema
 
     @property
-    def email(self) -> str:
-        return self.__email
+    def usuarios(self):
+        return self.__usuarios
+    
+    def abre_tela(self):
+        opcoes = {1: self.novo_usuario,
+                  2: self.altera_usuario,
+                  3: self.lista_usuarios,
+                  0: self.retornar
+        }
+    
+        while True:
+            try:
+                opcao = self.__tela.mostra_menu()
+                if opcao in opcoes:
+                    try:
+                        opcoes[opcao]()
+                    except Exception as e:
+                        self.__tela.imprime_mensagem(f"Erro ao executar a opção: {e}")
+                else:
+                    self.__tela.imprime_mensagem("Opção inválida.")
+            except Exception as e:
+                self.__tela.imprime_mensagem(f"Erro inesperado no menu: {e}")
+    
+    def novo_usuario(self):
+        try:
+            dados = self.__tela.coleta_dados()
 
-    @email.setter
-    def email(self, novo_email: str):
-        self.__email = novo_email
+            # Verifica se já existe usuário com a mesma matrícula
+            if any(u.matricula == dados["matricula"] for u in self.__usuarios):
+                self.__tela.imprime_mensagem("Erro: Matrícula já cadastrada.\n")
+                return
+            if any(u.email == dados["email"] for u in self.__usuarios):
+                self.__tela.imprime_mensagem("Erro: Email já cadastrada.\n")
+                return
+            if any(u.telefone == dados["telefone"] for u in self.__usuarios):
+                self.__tela.imprime_mensagem("Erro: Telefone já cadastrado.\n")
+                return
 
-    @property
-    def telefone(self) -> str:
-        return self.__telefone
 
-    @telefone.setter
-    def telefone(self, novo_telefone: str):
-        self.__telefone = novo_telefone
 
-    @property
-    def curso(self) -> str:
-        return self.__curso
+            novo_usuario = Usuario(
+                dados["nome"],
+                dados["email"],
+                dados["telefone"],
+                dados["departamento"],
+                dados["matricula"]
+            )
+            self.__usuarios.append(novo_usuario)
+            print(f"Novo usuário cadastrado (Dept. {dados['departamento']})\n")
+            return novo_usuario
 
-    @curso.setter
-    def curso(self, novo_curso: str):
-        self.__curso = novo_curso
+        except KeyError as e:
+            self.__tela.imprime_mensagem(f"Dado ausente: {e}")
+        except Exception as e:
+            self.__tela.imprime_mensagem(f"Erro ao cadastrar usuário: {e}")
+    
+    def altera_usuario(self):
+        self.lista_usuarios()
+        matricula = self.__tela.coleta_matricula_usuario()
+        for usuario in self.__usuarios:
+            if (usuario.matricula == matricula):
+                novos_dados = self.__tela.coleta_dados()
+                usuario.nome = novos_dados["nome"]
+                usuario.email = novos_dados["email"]
+                usuario.telefone = novos_dados["telefone"]
+                usuario.departamento = novos_dados["departamento"]
+                usuario.matricula = novos_dados["matricula"]
+            self.__tela.imprime_mensagem("Dados atualizados com sucesso.\n")
+        else:
+            self.__tela.imprime_mensagem("Usuário não cadastrado ou matrícula incorreta.\n")
+        
+        return usuario
 
-    @property
-    def matricula(self) -> str:
-        return self.__matricula
+    def retorna_usuario(self, matricula):
+        for usuario in self.__usuarios:
+            if (usuario.matricula == matricula):
+                return usuario
+        else:
+            print("Usuário não cadastrado ou matrícula incorreta.\n")
 
-    @matricula.setter
-    def matricula(self, nova_matricula: str):
-        self.__matricula = nova_matricula
-
-    def __str__(self):
-        return (f"Nome: {self.__nome}\n"
-                f"Email: {self.__email}\n"
-                f"Telefone: {self.__telefone}\n"
-                f"Curso: {self.__curso}\n"
-                f"Matrícula: {self.__matricula}")
+    def lista_usuarios(self):
+        print("Lista de Usuários")
+        print("--- Nome --- Matrícula --- Departamento")
+        for user in self.__usuarios:
+            print(user.nome, user.matricula, user.departamento)
+    
+    def retornar(self):
+        self.__controlador_sistema.abre_tela()
