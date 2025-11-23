@@ -5,7 +5,7 @@ class TelaCondicoes:
         self.__window = None
         self.init_opcoes()
 
-    # ================= MENU CONDIÇÕES ==================
+    
     def tela_opcoes(self):
         self.init_opcoes()
         button, values = self.open()
@@ -41,7 +41,7 @@ class TelaCondicoes:
 
         self.__window = sg.Window('Menu Condições').Layout(layout)
 
-    # ================= CADASTRO CONDIÇÕES ==================
+    
     def coleta_dados(self):
         sg.ChangeLookAndFeel('DarkTeal4')
 
@@ -77,7 +77,7 @@ class TelaCondicoes:
         self.close()
         return values
 
-    # ================= CÓDIGO CONDIÇÕES ==================
+    
     def coleta_codigo_condicoes(self):
         sg.ChangeLookAndFeel('DarkTeal4')
 
