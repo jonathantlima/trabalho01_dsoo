@@ -5,7 +5,7 @@ class TelaCelulas:
         self.__window = None
         self.init_opcoes()
 
-    # ================= MENU CÉLULAS ==================
+    
     def tela_opcoes(self):
         self.init_opcoes()
         button, values = self.open()
@@ -41,7 +41,7 @@ class TelaCelulas:
 
         self.__window = sg.Window('Menu Células').Layout(layout)
 
-    # ================= CADASTRO CÉLULA ==================
+    
     def coleta_dados(self):
         sg.ChangeLookAndFeel('DarkTeal4')
 
@@ -74,7 +74,7 @@ class TelaCelulas:
         self.close()
         return values
 
-    # ================= CÓDIGO CÉLULA ==================
+    
     def coleta_codigo_celula(self):
         sg.ChangeLookAndFeel('DarkTeal4')
 
